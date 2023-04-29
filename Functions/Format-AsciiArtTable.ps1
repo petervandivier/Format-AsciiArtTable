@@ -29,7 +29,12 @@ function Format-AsciiArtTable {
         [Parameter()]
         [Alias('LastDelimiter','TrailingDelimiter')]
         [switch]
-        $IncludeTrailingDelimiter
+        $IncludeTrailingDelimiter,
+
+        [Parameter()]
+        [Alias('RTrim','RightTrim')]
+        [switch]
+        $TrimEnd
     )
 
     $Columns = $InputObject[0] | ConvertTo-Json | jq keys_unsorted | ConvertFrom-Json | ForEach-Object {
@@ -65,6 +70,11 @@ function Format-AsciiArtTable {
         $SpacerRow += if($column.IsNotLast){$Delimiter}
     }
 
+    if($TrimEnd){
+        $HeaderRow = $HeaderRow.TrimEnd()
+        $SpacerRow = $SpacerRow.TrimEnd()
+    }
+
     $OutputObject = @()
 
     if($Header -eq 'Default'){
@@ -81,6 +91,9 @@ function Format-AsciiArtTable {
             $whitespace = " " * $column.MaxLength
             $OutString += "$($row."$($column.Name)")${whitespace}".Substring(0,$column.MaxLength)
             $OutString += if($column.IsNotLast){$Delimiter}
+        }
+        if($TrimEnd){
+            $OutString = $OutString.TrimEnd()
         }
         $OutputObject += $OutString
     }
