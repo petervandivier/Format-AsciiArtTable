@@ -4,7 +4,7 @@
 # Generated on: 2023-04-28
 #
 @{
-    ModuleVersion = '0.0.2'
+    ModuleVersion = '0.0.3'
     GUID          = 'ddecd499-e8f5-43ad-94d1-47f140e9d7da'
     Author        = 'Peter.Vandivier'
     Copyright     = '(c) Peter.Vandivier. All rights reserved.'

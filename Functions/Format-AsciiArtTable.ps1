@@ -39,7 +39,7 @@ function Format-AsciiArtTable {
 
     $Columns = $InputObject[0] | ConvertTo-Json | jq keys_unsorted | ConvertFrom-Json | ForEach-Object {
         $i++
-        $MaxLength = ($InputObject.$_ | ForEach-Object { $_.ToString().Length } | Measure-Object -Maximum).Maximum
+        $MaxLength = ($InputObject.$_ | ForEach-Object { "$_".Length } | Measure-Object -Maximum).Maximum
 
         if($Header -eq 'Default'){
             if($_.Length -gt $MaxLength){
